@@ -36,6 +36,5 @@ async function getQuote() {
     }
 }
 console.log("a new beginning")
-console.log(await getQuote())
 
 

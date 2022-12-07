@@ -1,25 +1,38 @@
-::root {
+:root {
    --skyHex: #86BBd8;
    --blueHex: #086375;
-   --yellowHex: #FFF689;
-   --greenHex: #CFFFB0;
+   --yellowHex: #ffe685;
+   --greenHex: #80e978;
    --purpleHex:#734B5E;
    --darkdark: #121212;
-   --nearWhite: #eaeaea
+   --nearWhite: #eaeaea;
+   --Xpos: 0;
+   --Ypos: 0;
 }
 body{
-    background-color: #86BBd8;
+    background-color: var(--skyHex);
 }
-.topbar{
+#topbar{
     position: absolute;
     top:0px;
     left: 0px;
     text-align: center;
-    color: #eaeaea;
-    background-color: #086375;
-    text-shadow: 1px 1px 2px #121212;
+    color: var(--nearWhite);
+    background-color: var(--blueHex);
+    text-shadow: 1px 1px 2px var(--darkdark);
     text-decoration: underline;
     height: 50px;
     width: 100vw;
     font-size: 40px;
+}
+
+#mommy {
+    position: absolute;
+    width: 65%;
+    height: 80%;
+    top:10%;
+    left: 17.5%;
+    background-color: var(--greenHex);
+    border-radius: 20px;
+    border: 10px solid var(--nearWhite);
 }
