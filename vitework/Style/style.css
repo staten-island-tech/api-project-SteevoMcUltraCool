@@ -6,8 +6,8 @@
    --purpleHex:#734B5E;
    --darkdark: #121212;
    --nearWhite: #eaeaea;
-   --Xpos: 1px;
-   --Ypos: 1px;
+   --Xpos: 40px;
+   --Ypos: 40px;
 }
 body{
     background-color: var(--skyHex);
@@ -34,7 +34,7 @@ body{
     left: 17.5%;
     background-color: var(--greenHex);
     border-radius: 20px;
-    border: 10px solid var(--nearWhite);
+    border: 4px solid var(--nearWhite);
 }
 #floor {
     position: absolute;
@@ -51,6 +51,6 @@ body{
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--darkdark);
-    top:var(--Ypos);
-    left:var(--Ypos)
+    top:calc(var(--Ypos) - 40px);
+    left:calc(var(--Xpos) - 40px)
 }
