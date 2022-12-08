@@ -47,10 +47,10 @@ body{
 
 #character {
     position: absolute;
-    height: 9.5%;
+    width: 5%;
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: var(--darkdark);
-    top:calc(var(--Ypos) - 40px);
-    left:calc(var(--Xpos) - 40px)
+    top:calc(var(--Ypos));
+    left:calc(var(--Xpos))
 }
