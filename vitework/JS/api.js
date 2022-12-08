@@ -1,5 +1,5 @@
 
-async function getJoke() {
+async function gtJoke() {
     try {
         let joke = await fetch("https://icanhazdadjoke.com/",{
             method: 'GET', 
@@ -12,7 +12,7 @@ async function getJoke() {
         console.log(er)
     }
 }
-async function getCompatability(name,lover) {
+async function gtCompatability(name,lover) {
     try {
         let compatibility = await fetch(`https://love-calculator.p.rapidapi.com/getPercentage?sname=${lover}&fname=${name}`,{
             method: 'GET', 
@@ -26,7 +26,7 @@ async function getCompatability(name,lover) {
         console.log(er)
     }
 }
-async function getQuote() {
+async function gtQuote() {
     try {
         let compatibility = await fetch("https://api.quotable.io/random")
         let comp = (await compatibility.json())
@@ -36,5 +36,5 @@ async function getQuote() {
     }
 }
 console.log("a new beginning")
-
+export let getJoke = gtJoke,  getCompatability = gtCompatability, getQuote = gtQuote 
 
