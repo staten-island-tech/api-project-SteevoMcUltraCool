@@ -53,5 +53,5 @@ body{
     background-color: var(--darkdark);
     top:calc(var(--Ypos));
     left:calc(var(--Xpos));
-    transition: all 0.1s;
+    transition: all 0.22s;
 }
