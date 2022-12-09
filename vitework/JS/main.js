@@ -40,7 +40,8 @@ setInterval(function () {
     DOM.root.style.setProperty("--Ypos", `${M(mousePos.Y, "Y")}px`);
   }
   let charstate = DOM.character.style.getBoundingClientRect();
-  charbox = new Box(new Vector(ch));
+  charbox = new Box(new Vector(charstate.left,charstate.top),new Vector(charstate.right,charstate.bottom));
+ 
 }, 100);
 
 window.addEventListener("mousemove", function (event) {
