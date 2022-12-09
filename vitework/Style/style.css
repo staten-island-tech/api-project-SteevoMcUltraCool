@@ -54,4 +54,49 @@ body{
     top:calc(var(--Ypos));
     left:calc(var(--Xpos));
     transition: all 0.22s;
+    z-index: 5;
+}
+
+#wisdom {
+    transition: all 0.5s;
+    position: absolute;
+    width: 18%;
+    height: 75%;
+    left: 0px;
+    border-radius: 125px;
+    background-color: var(--greenHex);
+    top: 12.5%;
+}
+#wisdom .image {
+    width: 100%;
+    height: 50%;
+    background-attachment: local;
+    background-size: contain;
+    background-image: url("../Images/oldman.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:25%;
+}
+
+#fortune {
+    transition: all 0.5s;
+    position: absolute;
+    width: 18%;
+    height: 75%;
+    right: 0px;
+    border-radius: 125px;
+    background-color: var(--greenHex);
+    top: 12.5%;
+}
+#fortune .image {
+    width: 100%;
+    height: 50%;
+    background-attachment: local;
+    background-size: contain;
+    background-image: url("../Images/fortune.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top:25%;
 }

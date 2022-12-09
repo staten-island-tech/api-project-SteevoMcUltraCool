@@ -12,6 +12,15 @@ async function gtJoke() {
         console.log(er)
     }
 }
+class Quote {
+    constructor(quote,author){
+        this.quote = quote
+        this.author = author
+    }
+    toString(){
+        return `"${this.quote}" -${this.author}`
+    }
+}
 async function gtCompatability(name,lover) {
     try {
         let compatibility = await fetch(`https://love-calculator.p.rapidapi.com/getPercentage?sname=${lover}&fname=${name}`,{
@@ -21,16 +30,17 @@ async function gtCompatability(name,lover) {
                 'X-RapidAPI-Host': 'love-calculator.p.rapidapi.com'            }
         })
         let comp = (await compatibility.json())
-        return [comp.percentage, comp.result]
+        return new Quote(comp.result, comp.percentage)
     }catch(er) {
         console.log(er)
     }
 }
+
 async function gtQuote() {
     try {
         let compatibility = await fetch("https://api.quotable.io/random")
         let comp = (await compatibility.json())
-        return [comp.content, comp.author]
+        return new Quote(comp.content, comp.author)
     }catch(er) {
         console.log(er)
     }

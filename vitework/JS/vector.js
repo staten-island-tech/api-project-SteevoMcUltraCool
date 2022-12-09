@@ -27,12 +27,13 @@ class Boxx {
     this.width = p3.X - topLeft.X;
   }
   overlapsBox(box2) {
-    let corners = Object.keys(this.Corners).map((item) => this[item]);
+    let corners = Object.keys(this.Corners).map((item) => this.Corners[item]);
+    console.log(this.Corners)
     let overcorner = corners.filter((corner) => corner.liesOnBox(box2));
     if (overcorner.length >= 1) {
       return true;
     }
-    corners = Object.keys(box2.Corners).map((item) => box2[item]);
+    corners = Object.keys(box2.Corners).map((item) => box2.Corners[item]);
     overcorner = corners.filter((corner) => corner.liesOnBox(this));
     if (overcorner.length >= 1) {
       return true;
