@@ -52,5 +52,6 @@ body{
     border-radius: 50%;
     background-color: var(--darkdark);
     top:calc(var(--Ypos));
-    left:calc(var(--Xpos))
+    left:calc(var(--Xpos));
+    transition: all 0.1s;
 }

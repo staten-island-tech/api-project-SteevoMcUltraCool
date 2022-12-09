@@ -1,12 +1,14 @@
 import { getJoke, getCompatability, getQuote } from "./api.js";
+import {Vector, Box} from "./vector";
+
 const DOM = {
   root: document.documentElement,
   character: document.getElementById("character"),
   mommy: document.getElementById("mommy"),
 };
-let mousePos = { X: 0, Y: 0 };
+let mousePos =  new Vector(0,0);
 let time = new Date().getTime();
-let mommySize = { X: 200, Y: 0 };
+let mommySize = new Vector(200,200);
 let charsize = 0
 let speed = mommySize.X / 3.5;
 function M(n,d) {
@@ -19,13 +21,13 @@ setInterval(function () {
   let sty = getComputedStyle(DOM.root);
   let x = sty.getPropertyValue("--Xpos");
   let y = sty.getPropertyValue("--Ypos");
-  let currentPos = {
-    X: Number(x.substring(0, x.length - 2)) || 0,
-    Y: Number(y.substring(0, y.length - 2)) || 0,
-  };
+  let currentPos = new Vector(
+     Number(x.substring(0, x.length - 2)) || 0,
+    Number(y.substring(0, y.length - 2)) || 0
+  );
   let deltaX = mousePos.X - currentPos.X;
   let deltaY = mousePos.Y - currentPos.Y;
-  if (Math.sqrt(deltaX**2 + deltaY**2) >= speed / 65) {
+  if (Math.sqrt(deltaX**2 + deltaY**2) >= speed / 50) {
     let data = Math.atan(deltaY / deltaX);
     deltaX = Math.cos(data) * speed * Math.sign(deltaX) * deltaTime;
     deltaY = Math.sin(data) * speed * Math.sign(deltaX) * deltaTime;
@@ -36,7 +38,7 @@ setInterval(function () {
     DOM.root.style.setProperty("--Xpos", `${M(mousePos.X,"X")}px`);
     DOM.root.style.setProperty("--Ypos", `${M(mousePos.Y,"Y")}px`);
   }
-}, 33);
+}, 50);
 
 window.addEventListener("mousemove", function (event) {
   let X = event.clientX;
@@ -48,10 +50,10 @@ window.addEventListener("mousemove", function (event) {
 
 function newSize() {
   let mamaStuff = DOM.mommy.getBoundingClientRect();
-  mommySize = {
-    X: Number(mamaStuff.right) - Number(mamaStuff.left),
-    Y: Number(mamaStuff.bottom) - Number(mamaStuff.top),
-  };
+  mommySize = new Vector(
+    Number(mamaStuff.right) - Number(mamaStuff.left),
+    Number(mamaStuff.bottom) - Number(mamaStuff.top),
+  );
   charsize = mommySize.X/20
   speed = mommySize.X / 3.5;
 }
