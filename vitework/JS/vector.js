@@ -28,7 +28,6 @@ class Boxx {
   }
   overlapsBox(box2) {
     let corners = Object.keys(this.Corners).map((item) => this.Corners[item]);
-    console.log(this.Corners)
     let overcorner = corners.filter((corner) => corner.liesOnBox(box2));
     if (overcorner.length >= 1) {
       return true;

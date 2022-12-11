@@ -6,7 +6,9 @@ const DOM = {
   character: document.getElementById("character"),
   mommy: document.getElementById("mommy"),
   ball: document.getElementById("ball"),
-  wiseMan: document.getElementById("wise")
+  wiseMan: document.getElementById("wise"),
+  jokst: document.getElementById("jokst"),
+  playBu: document.getElementById("play")
 };
 let mousePos = new Vector(0, 0);
 let time = new Date().getTime();
@@ -19,6 +21,8 @@ function M(n, d) {
 let charbox = {};
 let wisdombox = {};
 let fortunebox = {};
+let jokstbox = {};
+let playbox = {}
 let inprompt = false;
 setInterval(async function () {
   let newTime = new Date().getTime();
@@ -51,6 +55,8 @@ setInterval(async function () {
   
   }else if (charbox.overlapsBox(fortunebox)){
     await prompt("fortune")
+  }else if (charbox.overlapsBox(jokstbox)){
+    await prompt("joke")
   }else{
     unprompt()
   }
@@ -62,6 +68,8 @@ async function prompt(query){
     alert(await getQuote())
     }else if (query=="fortune"){
       alert(await getCompatability("Steve","Stela"))
+    }else if (query=="joke"){
+      alert(await getJoke())
     }
   }
 }
@@ -88,6 +96,10 @@ function newSize() {
   wisdombox = new Box(new Vector(wisdomStuff.left,wisdomStuff.top),new Vector(wisdomStuff.right,wisdomStuff.bottom))
   let fortuneStuff = DOM.ball.getBoundingClientRect()
   fortunebox = new Box(new Vector(fortuneStuff.left,fortuneStuff.top),new Vector(fortuneStuff.right,fortuneStuff.bottom))
+  let jokststuff = DOM.jokst.getBoundingClientRect()
+  jokstbox = new Box(new Vector(jokststuff.left,jokststuff.top),new Vector(jokststuff.right,jokststuff.bottom))
+  let playStuff = DOM.playBu.getBoundingClientRect()
+  playbox = new Box(new Vector(playStuff.left,playStuff.top),new Vector(playStuff.right,playStuff.bottom))
 }
 window.addEventListener("resize", newSize);
 newSize();

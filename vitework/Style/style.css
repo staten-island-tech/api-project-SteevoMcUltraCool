@@ -60,7 +60,7 @@ body{
 #wisdom {
     transition: all 0.5s;
     position: absolute;
-    width: 18%;
+    width: 14%;
     height: 75%;
     left: 0px;
     border-radius: 125px;
@@ -82,7 +82,7 @@ body{
 #fortune {
     transition: all 0.5s;
     position: absolute;
-    width: 18%;
+    width: 14%;
     height: 75%;
     right: 0px;
     border-radius: 125px;
@@ -99,4 +99,54 @@ body{
     background-repeat: no-repeat;
     position: absolute;
     top:25%;
+}
+
+#joker {
+    transition: all 0.5s;
+    position: absolute;
+    height: 20%;
+    width: 75%;
+    left: 12.5%;
+    border-radius: 125px;
+    background-color: var(--greenHex);
+    bottom: 0px;
+}
+#joker .image {
+    width: 50%;
+    height: 100%;
+    background-attachment: local;
+    background-size: contain;
+    background-image: url("../Images/joker.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    left:25%;
+}
+
+#play {
+    transition: all 0.5s;
+    position: absolute;
+    height: 20%;
+    width: 75%;
+    left: 12.5%;
+    border-radius: 125px;
+    background-color: var(--greenHex);
+    top: 0px;
+}
+
+#playBu {
+    position: absolute;
+    width: 40%;
+    height: 75%;
+    left: 30%;
+    top:12.5%;
+    color: black;
+    font-size: 100px;
+    text-align: center;
+    font-weight: bold;
+    background-attachment: local;
+    background-size: contain;
+    border-radius: 20px;
+    border: 2px solid black;
+    background-image: linear-gradient(90deg,gold,orange,yellow,orange,gold,gold,yellow,white,yellow,gold,gold,orange,yellow,orange,gold);
 }
