@@ -150,3 +150,12 @@ body{
     border: 2px solid black;
     background-image: linear-gradient(90deg,gold,orange,yellow,orange,gold,gold,yellow,white,yellow,gold,gold,orange,yellow,orange,gold);
 }
+
+#textBubble {
+    background-color: var(--nearWhite);
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    padding: 7px;
+    border: 2px solid var(--darkdark);
+}
