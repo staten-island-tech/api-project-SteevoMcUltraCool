@@ -10,6 +10,7 @@ const DOM = {
   wiseMan: document.getElementById("wise"),
   jokst: document.getElementById("jokst"),
   playBu: document.getElementById("play"),
+  wiseText: document.getElementById("wiseText"),
 };
 let mousePos = new Vector(0, 0);
 let time = new Date().getTime();
@@ -25,6 +26,8 @@ let fortunebox = {};
 let jokstbox = {};
 let playbox = {};
 let inprompt = false;
+let WisePrompt = new Prompt(DOM.wiseText, "Wise Man", "Would you like a quote of immense knowledge? (y/n)")
+WisePrompt.setProcedure("setDefault",function(){return ["Awesome!", "Awwh"]})
 setInterval(async function () {
   let newTime = new Date().getTime();
   let deltaTime = (newTime - time) / 1000;
@@ -42,7 +45,6 @@ setInterval(async function () {
     let data = Math.atan(deltaY / deltaX);
     deltaX = Math.cos(data) * speed * Math.sign(deltaX) * deltaTime;
     deltaY = Math.sin(data) * speed * Math.sign(deltaX) * deltaTime;
-    console.log(speed);
     DOM.root.style.setProperty("--Xpos", `${M(currentPos.X + deltaX, "X")}px`);
     DOM.root.style.setProperty("--Ypos", `${M(currentPos.Y + deltaY, "Y")}px`);
   } else {
@@ -55,7 +57,7 @@ setInterval(async function () {
     new Vector(charstate.right, charstate.bottom)
   );
   if (charbox.overlapsBox(wisdombox)) {
-    await prompt("wisdom");
+    WisePrompt.initiateProcedure()
   } else if (charbox.overlapsBox(fortunebox)) {
     await prompt("fortune");
   } else if (charbox.overlapsBox(jokstbox)) {

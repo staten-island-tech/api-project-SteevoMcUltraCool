@@ -3,16 +3,17 @@ let promptArray = [];
 class p {
   constructor(DOMME, header, query, keybinds) {
     this.element = DOMME;
-    this.state = "disabled";
+    this.state = "off";
     this.display = DOMME.style;
     this.display.display = "none";
-    this.element.class = "prompt";
+    this.element.classList.add("prompt")
     this.headerElement = document.createElement("h1");
     this.textElement = document.createElement("p");
     this.headerElement.innerHTML = header;
     this.element.appendChild(this.headerElement);
     this.element.appendChild(this.textElement);
     this.promptText = query;
+    keybinds = keybinds || {}
     this.yesKey = keybinds.Yes || "Y";
     this.noKey = keybinds.No || "N";
     promptArray.push(this);
@@ -29,54 +30,54 @@ class p {
     } else if (typeProcedure == "setDefault") {
       let values = procedure();
       this.initiateProcedure = function () {
-        if (!this.state == "disabled") {
+        if (this.state != "disabled"){
           this.state = "pendingInitiation";
-          this.display.display = "inline";
-          this.displayText(values[1] || values.initiateText, 0.033, true);
+          this.display.display = "inline"
+          this.displayText(this.promptText, 0.033, true);
           this.state = "initiated";
         }
       };
       this.acceptedProcedure = function () {
-        if (!this.state == "disabled") {
+        if (!this.state != "disabled") {
           this.state = "pendingAccepted";
-          this.displayText(values[2] || values.acceptedText, 0.033, true);
+          this.displayText(values[0] || values.acceptedText, 0.033, true);
           this.state = "accepted";
         }
       };
       this.deniedProcedure = function () {
-        if (!this.state == "disabled") {
+        if (this.state != "disabled") {
           this.state = "pendingDenied";
-          this.displayText(values[3] || values.deniedText, 0.033, true);
+          this.displayText(values[1] || values.deniedText, 0.033, true);
           this.state = "denied";
         }
       };
       this.resetProcedure = function () {
-        if (!this.state == "disabled") {
+        if (!this.state != "disabled") {
           this.state = "pendingReset";
           this.display.display = "none";
           this.state = "off";
         }
       };
-      this.state = "off";
     }
   }
   displayText(string, speed, erase) {
-    speed = speed || 0.033;
+    speed = speed || 0.133;
     if (erase) {
       this.textElement.innerHTML = "";
     }
     let sum = string.length;
     let count = 0;
-    do {
-      count = count + 1;
-      setTimeout(function () {
-        if (this.state != "off") {
-          this.textElement.innerHTML = string.sub(0, count);
+    let big = setInterval(function (eta) {
+        count = count + 1
+        if (eta.state != "off") {
+          eta.textElement.innerHTML = string.sub(0, count);
         } else {
           count = sum + 100;
         }
-      }, count * speed * 1000);
-    } while (count < sum);
+        if (sum > count){
+         clearInterval(big)
+        }
+      }, speed * 1000, this);
   }
 }
 function promptKeydownListener(event) {
