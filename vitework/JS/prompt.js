@@ -85,9 +85,9 @@ function promptKeydownListener(event){
   let activePrompts = promptArray.filter((prompt)=>prompt.state="initiated")
   activePrompts.forEach((prompt)=>{
     if (key=prompt.yesKey){
-      prompt.acceptedProcedure()
+      prompt.acceptedProcedure("key")
     }else if (key= prompt.noKey) {
-      prompt.deniedProcedure()
+      prompt.deniedProcedure("key")
     }
   })
 }
