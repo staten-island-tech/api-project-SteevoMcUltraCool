@@ -29,25 +29,33 @@ class p {
     }else if (typeProcedure=="setDefault"){
       let values = procedure()
       this.initiateProcedure = function(){
+        if (!this.state="disabled") {
         this.state = "pendingInitiation"
         this.display.display = "inline"
         this.displayText(values[1]|| values.initiateText,0.033, true)
         this.state = "initiated"
+        }
       }
       this.acceptedProcedure = function(){
+        if (!this.state="disabled") {
         this.state= "pendingAccepted"
         this.displayText(values[2] || values.acceptedText, 0.033, true)
         this.state = "accepted"
+        }
       }
       this.deniedProcedure = function(){
+        if (!this.state="disabled") {
         this.state= "pendingDenied"
         this.displayText(values[3] || values.deniedText, 0.033, true)
-        this.state = "denied"        
+        this.state = "denied"    
+        }
       }
       this.resetProcedure = function(){
+        if (!this.state="disabled") {
         this.state = "pendingReset"
         this.display.display = "none"
         this.state = "off"
+        }
       }
       this.state="off"
     }
