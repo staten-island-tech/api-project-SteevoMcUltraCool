@@ -1,7 +1,7 @@
 let promptArray = []
 
 class p { 
-  constructor(DOMME, header, query){
+  constructor(DOMME, header, query, keybinds){
     this.element = DOMME
     this.state = "disabled"
     this.display = DOMME.style
@@ -13,6 +13,8 @@ class p {
     this.element.appendChild(this.headerElement)
     this.element.appendChild(this.textElement)
     this.promptText = query
+    this.yesKey = keybinds.Yes || "Y"
+    this.noKey = keybinds.No || "N"
     promptArray.push(this)
   }
   setProcedure(typeProcedure, procedure){
@@ -68,8 +70,18 @@ class p {
       },count*speed*1000)
     }while(count<sum)
   }
+  }
 }
-  
+function promptKeydownListener(event){
+  let key = event.Key
+  let activePrompts = promptArray.filter((prompt)=>prompt.state="initiated")
+  activePrompts.forEach((prompt)=>{
+    if (key=prompt.yesKey){
+      prompt.acceptedProcedure()
+    }else if (key= prompt.noKey) {
+      prompt.deniedProcedure()
+    }
+  })
+}
 
-
-export let prompt = p
+export let prompt = p, passiveRUN = promptKeydownListener
