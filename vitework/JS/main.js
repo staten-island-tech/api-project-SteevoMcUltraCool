@@ -1,6 +1,7 @@
 import { getJoke, getCompatability, getQuote } from "./api.js";
-import { Vector, Box } from "./vector";
-
+import { Vector, Box } from "./vector.js";
+import { Prompt, passiveRUN } from "./prompt.js";
+window.addEventListener("keydown", passiveRUN);
 const DOM = {
   root: document.documentElement,
   character: document.getElementById("character"),
@@ -8,7 +9,7 @@ const DOM = {
   ball: document.getElementById("ball"),
   wiseMan: document.getElementById("wise"),
   jokst: document.getElementById("jokst"),
-  playBu: document.getElementById("play")
+  playBu: document.getElementById("play"),
 };
 let mousePos = new Vector(0, 0);
 let time = new Date().getTime();
@@ -22,7 +23,7 @@ let charbox = {};
 let wisdombox = {};
 let fortunebox = {};
 let jokstbox = {};
-let playbox = {}
+let playbox = {};
 let inprompt = false;
 setInterval(async function () {
   let newTime = new Date().getTime();
@@ -49,32 +50,34 @@ setInterval(async function () {
     DOM.root.style.setProperty("--Ypos", `${M(mousePos.Y, "Y")}px`);
   }
   let charstate = DOM.character.getBoundingClientRect();
-  charbox = new Box(new Vector(charstate.left,charstate.top),new Vector(charstate.right,charstate.bottom));
-  if (charbox.overlapsBox(wisdombox)){
-    await prompt("wisdom")
-  
-  }else if (charbox.overlapsBox(fortunebox)){
-    await prompt("fortune")
-  }else if (charbox.overlapsBox(jokstbox)){
-    await prompt("joke")
-  }else{
-    unprompt()
+  charbox = new Box(
+    new Vector(charstate.left, charstate.top),
+    new Vector(charstate.right, charstate.bottom)
+  );
+  if (charbox.overlapsBox(wisdombox)) {
+    await prompt("wisdom");
+  } else if (charbox.overlapsBox(fortunebox)) {
+    await prompt("fortune");
+  } else if (charbox.overlapsBox(jokstbox)) {
+    await prompt("joke");
+  } else {
+    unprompt();
   }
 }, 100);
-async function prompt(query){
-  if (!inprompt){
-    inprompt = true
-    if (query=="wisdom"){
-    alert(await getQuote())
-    }else if (query=="fortune"){
-      alert(await getCompatability("Steve","Stela"))
-    }else if (query=="joke"){
-      alert(await getJoke())
+async function prompt(query) {
+  if (!inprompt) {
+    inprompt = true;
+    if (query == "wisdom") {
+      alert(await getQuote());
+    } else if (query == "fortune") {
+      alert(await getCompatability("Steve", "Stela"));
+    } else if (query == "joke") {
+      alert(await getJoke());
     }
   }
 }
-function unprompt(){
-  inprompt = false
+function unprompt() {
+  inprompt = false;
 }
 window.addEventListener("mousemove", function (event) {
   let X = event.clientX;
@@ -92,14 +95,26 @@ function newSize() {
   );
   charsize = mommySize.X / 20;
   speed = mommySize.X / 3.5;
-  let wisdomStuff = DOM.wiseMan.getBoundingClientRect()
-  wisdombox = new Box(new Vector(wisdomStuff.left,wisdomStuff.top),new Vector(wisdomStuff.right,wisdomStuff.bottom))
-  let fortuneStuff = DOM.ball.getBoundingClientRect()
-  fortunebox = new Box(new Vector(fortuneStuff.left,fortuneStuff.top),new Vector(fortuneStuff.right,fortuneStuff.bottom))
-  let jokststuff = DOM.jokst.getBoundingClientRect()
-  jokstbox = new Box(new Vector(jokststuff.left,jokststuff.top),new Vector(jokststuff.right,jokststuff.bottom))
-  let playStuff = DOM.playBu.getBoundingClientRect()
-  playbox = new Box(new Vector(playStuff.left,playStuff.top),new Vector(playStuff.right,playStuff.bottom))
+  let wisdomStuff = DOM.wiseMan.getBoundingClientRect();
+  wisdombox = new Box(
+    new Vector(wisdomStuff.left, wisdomStuff.top),
+    new Vector(wisdomStuff.right, wisdomStuff.bottom)
+  );
+  let fortuneStuff = DOM.ball.getBoundingClientRect();
+  fortunebox = new Box(
+    new Vector(fortuneStuff.left, fortuneStuff.top),
+    new Vector(fortuneStuff.right, fortuneStuff.bottom)
+  );
+  let jokststuff = DOM.jokst.getBoundingClientRect();
+  jokstbox = new Box(
+    new Vector(jokststuff.left, jokststuff.top),
+    new Vector(jokststuff.right, jokststuff.bottom)
+  );
+  let playStuff = DOM.playBu.getBoundingClientRect();
+  playbox = new Box(
+    new Vector(playStuff.left, playStuff.top),
+    new Vector(playStuff.right, playStuff.bottom)
+  );
 }
 window.addEventListener("resize", newSize);
 newSize();
