@@ -30,7 +30,7 @@ class p {
     } else if (typeProcedure == "setDefault") {
       let values = procedure();
       this.initiateProcedure = function () {
-        if (this.state != "disabled"){
+        if (this.state != "disabled" && this.state !="initiated"){
           this.state = "pendingInitiation";
           this.display.display = "inline"
           this.displayText(this.promptText, 0.033, true);
@@ -68,16 +68,17 @@ class p {
     let sum = string.length;
     let count = 0;
     let big = setInterval(function (eta) {
+        console.log(count)
         count = count + 1
         if (eta.state != "off") {
-          eta.textElement.innerHTML = string.sub(0, count);
+          eta.textElement.innerHTML = string.substring(0, count);
         } else {
           count = sum + 100;
         }
-        if (sum > count){
+        if (count > sum){
          clearInterval(big)
         }
-      }, speed * 1000, this);
+      },  speed * 1000, this);
   }
 }
 function promptKeydownListener(event) {
