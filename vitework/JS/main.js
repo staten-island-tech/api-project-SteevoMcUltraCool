@@ -34,13 +34,17 @@ let WisePrompt = new Prompt(
 WisePrompt.setProcedure("setDefault", function () {
   return ["Awesome!", "Awwh"];
 });
-WisePrompt.setProcedure("accepted", async function () {
-  if (!this.state != "disabled") {
-    this.state = "pendingAccepted";
-    this.displayText("Awesome!", 0.033, true);
-    await new Promise((x) => setTimeout((x) => x, 200));
-    this.displayText((await getQuote()).toString(), 0.033);
-    this.state = "accepted";
+WisePrompt.setProcedure("accepted", async function (eta) {
+  if (eta.state == "initiated") {
+    console.log(eta.state)
+    eta.state = "pendingAccepted";
+    eta.displayText("Awesome!", 0.033, true);
+    await new Promise((x) => setTimeout(x, 200));
+    let quote = await getQuote()
+    await new Promise((x) => setTimeout(x,eta.displayText((quote).toString(), 0.033)));
+    if (eta.state=="pendingAccepted"){
+      eta.state = "accepted";
+    }
   }
 });
 setInterval(async function () {
@@ -81,7 +85,6 @@ setInterval(async function () {
   } else if (charbox.overlapsBox(jokstbox)) {
     await prompt("joke");
   } else {
-    console.log("crazy");
     unprompt();
   }
 }, 100);

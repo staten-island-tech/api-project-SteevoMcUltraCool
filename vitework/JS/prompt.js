@@ -14,45 +14,48 @@ class p {
     this.element.appendChild(this.textElement);
     this.promptText = query;
     keybinds = keybinds || {};
-    this.yesKey = keybinds.Yes || "Y";
-    this.noKey = keybinds.No || "N";
+    this.yesKey = keybinds.Yes || "y";
+    this.noKey = keybinds.No || "n";
     promptArray.push(this);
   }
   setProcedure(typeProcedure, procedure) {
     if (typeProcedure == "initiate") {
-      this.initiateProcedure = procedure;
+      this.initiateProcedure = function() {procedure(this)};
     } else if (typeProcedure == "accepted") {
-      this.acceptedProcedure = procedure;
+      this.acceptedProcedure = function() {procedure(this)};
     } else if (typeProcedure == "denied") {
-      this.deniedProcedure = procedure;
+      this.deniedProcedure = function() {procedure(this)};
     } else if (typeProcedure == "reset") {
-      this.resetProcedure = procedure;
+      this.resetProcedure = function() {procedure(this)};
     } else if (typeProcedure == "setDefault") {
       let values = procedure();
-      this.initiateProcedure = function () {
+      this.initiateProcedure = async function () {
         if (this.state != "disabled" && this.state != "initiated") {
           this.state = "pendingInitiation";
           this.display.visibility = "visible";
-          this.displayText(this.promptText, 0.033, true);
-          this.state = "initiated";
+          await new Promise(r => setTimeout(r, this.displayText(this.promptText, 0.033, true)));
+          if (this.state == "pendingInitiation"){
+            this.state = "initiated";
+          }
+          console.log(this.state)
         }
       };
       this.acceptedProcedure = function () {
-        if (!this.state != "disabled") {
+        if (this.state == "initiated") {
           this.state = "pendingAccepted";
           this.displayText(values[0] || values.acceptedText, 0.033, true);
           this.state = "accepted";
         }
       };
-      this.deniedProcedure = function () {
-        if (this.state != "disabled") {
+      this.deniedProcedure = async function (reason) {
+        if (this.state == "initiated") {
           this.state = "pendingDenied";
-          this.displayText(values[1] || values.deniedText, 0.033, true);
+          await new Promise(r => setTimeout(r, this.displayText(reason || values[1] || values.deniedText, 0.033, true)));
           this.state = "denied";
         }
       };
       this.resetProcedure = function () {
-        if (!this.state != "disabled") {
+        if (this.state != "disabled") {
           this.state = "pendingReset";
           this.display.visibility = "hidden";
           this.state = "off";
@@ -61,17 +64,17 @@ class p {
     }
   }
   displayText(string, speed, erase) {
-    speed = speed || 0.133;
+    speed = speed || 0.033;
     if (erase) {
       this.textElement.innerHTML = "";
     }
     let sum = string.length;
     let count = 0;
+    let IS = this.state
     let big = setInterval(
       function (eta) {
-        console.log(count);
         count = count + 1;
-        if (eta.state != "off") {
+        if (eta.state == IS) {
           eta.textElement.innerHTML = string.substring(0, count);
         } else {
           count = sum + 100;
@@ -83,19 +86,20 @@ class p {
       speed * 1000,
       this
     );
+    return (speed * 1000 * sum)
   }
 }
 function promptKeydownListener(event) {
-  let key = event.Key;
+  let key = event.key;
   let activePrompts = promptArray.filter(
-    (prompt) => (prompt.state = "initiated")
+    (prompt) => (prompt.state == "initiated")
   );
   activePrompts.forEach((prompt) => {
-    if ((key = prompt.yesKey)) {
-      prompt.acceptedProcedure("key");
-    } else if ((key = prompt.noKey)) {
+    if ((key == prompt.yesKey)) {
+      prompt.acceptedProcedure(false);
+    } else if ((key == prompt.noKey)) {
       console.log(prompt.deniedProcedure);
-      prompt.deniedProcedure("key");
+      prompt.deniedProcedure(false);
     }
   });
 }
