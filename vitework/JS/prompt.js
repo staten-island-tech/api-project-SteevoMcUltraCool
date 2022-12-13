@@ -5,7 +5,7 @@ class p {
     this.element = DOMME;
     this.state = "off";
     this.display = DOMME.style;
-    this.display.display = "none";
+    this.display.visibility = "hidden";
     this.element.classList.add("prompt")
     this.headerElement = document.createElement("h1");
     this.textElement = document.createElement("p");
@@ -32,7 +32,7 @@ class p {
       this.initiateProcedure = function () {
         if (this.state != "disabled" && this.state !="initiated"){
           this.state = "pendingInitiation";
-          this.display.display = "inline"
+          this.display.visibility = "visible"
           this.displayText(this.promptText, 0.033, true);
           this.state = "initiated";
         }
@@ -54,7 +54,7 @@ class p {
       this.resetProcedure = function () {
         if (!this.state != "disabled") {
           this.state = "pendingReset";
-          this.display.display = "none";
+          this.display.visibility = "hidden";
           this.state = "off";
         }
       };
