@@ -6,14 +6,14 @@ class p {
     this.state = "off";
     this.display = DOMME.style;
     this.display.visibility = "hidden";
-    this.element.classList.add("prompt")
+    this.element.classList.add("prompt");
     this.headerElement = document.createElement("h1");
     this.textElement = document.createElement("p");
     this.headerElement.innerHTML = header;
     this.element.appendChild(this.headerElement);
     this.element.appendChild(this.textElement);
     this.promptText = query;
-    keybinds = keybinds || {}
+    keybinds = keybinds || {};
     this.yesKey = keybinds.Yes || "Y";
     this.noKey = keybinds.No || "N";
     promptArray.push(this);
@@ -30,9 +30,9 @@ class p {
     } else if (typeProcedure == "setDefault") {
       let values = procedure();
       this.initiateProcedure = function () {
-        if (this.state != "disabled" && this.state !="initiated"){
+        if (this.state != "disabled" && this.state != "initiated") {
           this.state = "pendingInitiation";
-          this.display.visibility = "visible"
+          this.display.visibility = "visible";
           this.displayText(this.promptText, 0.033, true);
           this.state = "initiated";
         }
@@ -67,18 +67,22 @@ class p {
     }
     let sum = string.length;
     let count = 0;
-    let big = setInterval(function (eta) {
-        console.log(count)
-        count = count + 1
+    let big = setInterval(
+      function (eta) {
+        console.log(count);
+        count = count + 1;
         if (eta.state != "off") {
           eta.textElement.innerHTML = string.substring(0, count);
         } else {
           count = sum + 100;
         }
-        if (count > sum){
-         clearInterval(big)
+        if (count > sum) {
+          clearInterval(big);
         }
-      },  speed * 1000, this);
+      },
+      speed * 1000,
+      this
+    );
   }
 }
 function promptKeydownListener(event) {
@@ -90,6 +94,7 @@ function promptKeydownListener(event) {
     if ((key = prompt.yesKey)) {
       prompt.acceptedProcedure("key");
     } else if ((key = prompt.noKey)) {
+      console.log(prompt.deniedProcedure);
       prompt.deniedProcedure("key");
     }
   });

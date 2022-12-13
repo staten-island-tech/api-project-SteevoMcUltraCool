@@ -153,9 +153,14 @@ body{
 
 .prompt {
     background-color: var(--nearWhite);
-    height: 100%;
-    width: 100%;
+    height: fit-content;
+    width: 200px;
     border-radius: 10px;
     padding: 7px;
     border: 2px solid var(--darkdark);
+}
+#wiseText {
+    position: absolute;
+    left: 85%;
+    top: -20%;
 }

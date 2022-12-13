@@ -26,8 +26,23 @@ let fortunebox = {};
 let jokstbox = {};
 let playbox = {};
 let inprompt = false;
-let WisePrompt = new Prompt(DOM.wiseText, "Wise Man", "Would you like a quote of immense knowledge? (y/n)")
-WisePrompt.setProcedure("setDefault",function(){return ["Awesome!", "Awwh"]})
+let WisePrompt = new Prompt(
+  DOM.wiseText,
+  "Wise Man",
+  "Would you like a quote of immense knowledge? (y/n)"
+);
+WisePrompt.setProcedure("setDefault", function () {
+  return ["Awesome!", "Awwh"];
+});
+WisePrompt.setProcedure("accepted", async function () {
+  if (!this.state != "disabled") {
+    this.state = "pendingAccepted";
+    this.displayText("Awesome!", 0.033, true);
+    await new Promise((x) => setTimeout((x) => x, 200));
+    this.displayText((await getQuote()).toString(), 0.033);
+    this.state = "accepted";
+  }
+});
 setInterval(async function () {
   let newTime = new Date().getTime();
   let deltaTime = (newTime - time) / 1000;
@@ -57,12 +72,16 @@ setInterval(async function () {
     new Vector(charstate.right, charstate.bottom)
   );
   if (charbox.overlapsBox(wisdombox)) {
-    WisePrompt.initiateProcedure()
+    if (!inprompt) {
+      inprompt = true;
+      WisePrompt.initiateProcedure();
+    }
   } else if (charbox.overlapsBox(fortunebox)) {
     await prompt("fortune");
   } else if (charbox.overlapsBox(jokstbox)) {
     await prompt("joke");
   } else {
+    console.log("crazy");
     unprompt();
   }
 }, 100);
@@ -80,6 +99,7 @@ async function prompt(query) {
 }
 function unprompt() {
   inprompt = false;
+  WisePrompt.resetProcedure();
 }
 window.addEventListener("mousemove", function (event) {
   let X = event.clientX;
