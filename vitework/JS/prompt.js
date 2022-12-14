@@ -16,6 +16,8 @@ class p {
     keybinds = keybinds || {};
     this.yesKey = keybinds.Yes || "y";
     this.noKey = keybinds.No || "n";
+    this.resetKey = keybinds.Reset || "unbinded";
+    this.doubleYesReset = true;
     promptArray.push(this);
   }
   setProcedure(typeProcedure, procedure) {
@@ -40,10 +42,10 @@ class p {
           console.log(this.state)
         }
       };
-      this.acceptedProcedure = function () {
+      this.acceptedProcedure = async function (reason) {
         if (this.state == "initiated") {
           this.state = "pendingAccepted";
-          this.displayText(values[0] || values.acceptedText, 0.033, true);
+          await new Promise(r => setTimeout(r, this.displayText(reason || values[0] || values.acceptedText, 0.033, true)));
           this.state = "accepted";
         }
       };
@@ -101,6 +103,14 @@ function promptKeydownListener(event) {
       console.log(prompt.deniedProcedure);
       prompt.deniedProcedure(false);
     }
+  });
+  let acceptedPrompts = promptArray.filter(
+    (prompt) => (prompt.state == "accepted" && prompt.doubleYesReset)
+  );
+  acceptedPrompts.forEach((prompt) => {
+    if ((key == prompt.yesKey)) {
+      prompt.initiateProcedure();
+    } 
   });
 }
 

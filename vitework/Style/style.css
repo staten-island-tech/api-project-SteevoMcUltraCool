@@ -164,3 +164,13 @@ body{
     left: 85%;
     top: -20%;
 }
+#ballText {
+    position: absolute;
+    right: 85%;
+    top: -20%;
+}
+#jokeText {
+    position: absolute;
+    right: -25%;
+    top: -20%;
+}

@@ -1,4 +1,4 @@
-import { getJoke, getCompatability, getQuote } from "./api.js";
+import { getJoke, getFortune, getQuote } from "./api.js";
 import { Vector, Box } from "./vector.js";
 import { Prompt, passiveRUN } from "./prompt.js";
 window.addEventListener("keydown", passiveRUN);
@@ -11,6 +11,8 @@ const DOM = {
   jokst: document.getElementById("jokst"),
   playBu: document.getElementById("play"),
   wiseText: document.getElementById("wiseText"),
+  ballText: document.getElementById("ballText"),
+  jokeText: document.getElementById("jokeText")
 };
 let mousePos = new Vector(0, 0);
 let time = new Date().getTime();
@@ -42,6 +44,46 @@ WisePrompt.setProcedure("accepted", async function (eta) {
     await new Promise((x) => setTimeout(x, 200));
     let quote = await getQuote()
     await new Promise((x) => setTimeout(x,eta.displayText((quote).toString(), 0.033)));
+    if (eta.state=="pendingAccepted"){
+      eta.state = "accepted";
+    }
+  }
+});
+let BallPrompt = new Prompt(
+  DOM.ballText,
+  "Fortune Ball",
+  "Care to venture into the unknown? (y/n)"
+);
+BallPrompt.setProcedure("setDefault", function () {
+  return ["Hmm...", "Awwh"];
+});
+BallPrompt.setProcedure("accepted", async function (eta) {
+  if (eta.state == "initiated") {
+    eta.state = "pendingAccepted";
+    eta.displayText("Hmm...", 0.033, true);
+    await new Promise((x) => setTimeout(x, 200));
+    let quote = await getFortune()
+    await new Promise((x) => setTimeout(x,eta.displayText((quote).toString(), 0.033)));
+    if (eta.state=="pendingAccepted"){
+      eta.state = "accepted";
+    }
+  }
+});
+let JokePrompt = new Prompt(
+  DOM.jokeText,
+  "The Jester",
+  "Bet i can turn that frown around... care for a joke? (y/n)"
+);
+JokePrompt.setProcedure("setDefault", function () {
+  return ["Mwehehe", "The real joke's on you!"];
+});
+JokePrompt.setProcedure("accepted", async function (eta) {
+  if (eta.state == "initiated") {
+    eta.state = "pendingAccepted";
+    eta.displayText("Mwehehe", 0.033, true);
+    await new Promise((x) => setTimeout(x, 200));
+    let quote = await getJoke()
+    await new Promise((x) => setTimeout(x,eta.displayText(quote, 0.033)));
     if (eta.state=="pendingAccepted"){
       eta.state = "accepted";
     }
@@ -81,9 +123,15 @@ setInterval(async function () {
       WisePrompt.initiateProcedure();
     }
   } else if (charbox.overlapsBox(fortunebox)) {
-    await prompt("fortune");
+    if (!inprompt) {
+      inprompt = true;
+      BallPrompt.initiateProcedure();
+    }
   } else if (charbox.overlapsBox(jokstbox)) {
-    await prompt("joke");
+    if (!inprompt) {
+      inprompt = true;
+      JokePrompt.initiateProcedure();
+    }
   } else {
     unprompt();
   }
@@ -94,7 +142,8 @@ async function prompt(query) {
     if (query == "wisdom") {
       alert(await getQuote());
     } else if (query == "fortune") {
-      alert(await getCompatability("Steve", "Stela"));
+
+      console.log(await getFortune());
     } else if (query == "joke") {
       alert(await getJoke());
     }
@@ -103,6 +152,8 @@ async function prompt(query) {
 function unprompt() {
   inprompt = false;
   WisePrompt.resetProcedure();
+  BallPrompt.resetProcedure();
+  JokePrompt.resetProcedure()
 }
 window.addEventListener("mousemove", function (event) {
   let X = event.clientX;

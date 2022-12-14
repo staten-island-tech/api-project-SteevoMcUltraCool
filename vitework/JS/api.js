@@ -21,19 +21,20 @@ class Quote {
         return `"${this.quote}" -${this.author}`
     }
 }
-async function gtCompatability(name,lover) {
-    try {
-        let compatibility = await fetch(`https://love-calculator.p.rapidapi.com/getPercentage?sname=${lover}&fname=${name}`,{
-            method: 'GET', 
-            headers: {
-                'X-RapidAPI-Key': '82720bd7d6msh2d19c07fd7db3ddp1297f3jsn24bf33fef3b4',
-                'X-RapidAPI-Host': 'love-calculator.p.rapidapi.com'            }
-        })
-        let comp = (await compatibility.json())
-        return new Quote(comp.result, comp.percentage)
-    }catch(er) {
-        console.log(er)
-    }
+
+let fortunes = [
+    "I can only see sadness in your future.", "Now is the time to act on your strongest desire.", "It might be best to take a break.", "You will lead a happy life.", "A great truth will be revealed to you.",
+    "Sometimes things don't work out... and that's okay. Keep trying!", "You will have a lucky experience at a great cost.", "Everything in your life may not be as it seems.", "I sense trauma in your near future."
+]
+async function gtFortune() {
+    //try {
+     //   let leFortune = await fetch(`https:/fortuneapi.heroku.com`)
+       // let fortune = (await leFortune.json())
+       // return fortune
+    //}catch(er) {
+      //  console.log(er)
+    //}
+    return fortunes[Math.floor(fortunes.length * Math.random())]
 }
 
 async function gtQuote() {
@@ -46,5 +47,5 @@ async function gtQuote() {
     }
 }
 console.log("a new beginning")
-export let getJoke = gtJoke,  getCompatability = gtCompatability, getQuote = gtQuote 
+export let getJoke = gtJoke,  getFortune = gtFortune, getQuote = gtQuote 
 
