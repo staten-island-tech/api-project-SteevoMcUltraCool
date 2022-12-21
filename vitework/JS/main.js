@@ -28,11 +28,7 @@ let fortunebox = {};
 let jokstbox = {};
 let playbox = {};
 let inprompt = false;
-let WisePrompt = new Prompt(
-  DOM.wiseText,
-  "Wise Man",
-  "Would you like a quote of immense knowledge? (y/n)"
-);
+let WisePrompt = new Prompt( DOM.wiseText,"Wise Man","Would you like a quote of immense knowledge? (y/n)");
 WisePrompt.setProcedure("setDefault", function () {
   return ["Awesome!", "Awwh"];
 });
@@ -49,11 +45,7 @@ WisePrompt.setProcedure("accepted", async function (eta) {
     }
   }
 });
-let BallPrompt = new Prompt(
-  DOM.ballText,
-  "Fortune Ball",
-  "Care to venture into the unknown? (y/n)"
-);
+let BallPrompt = new Prompt(DOM.ballText,"Fortune Ball","Care to venture into the unknown? (y/n)");
 BallPrompt.setProcedure("setDefault", function () {
   return ["Hmm...", "Awwh"];
 });
@@ -69,11 +61,7 @@ BallPrompt.setProcedure("accepted", async function (eta) {
     }
   }
 });
-let JokePrompt = new Prompt(
-  DOM.jokeText,
-  "The Jester",
-  "Bet i can turn that frown around... care for a joke? (y/n)"
-);
+let JokePrompt = new Prompt(DOM.jokeText,"The Jester","Bet i can turn that frown around... care for a joke? (y/n)");
 JokePrompt.setProcedure("setDefault", function () {
   return ["Mwehehe", "The real joke's on you!"];
 });
