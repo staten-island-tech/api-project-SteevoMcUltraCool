@@ -9,10 +9,15 @@ const DOM = {
   ball: document.getElementById("ball"),
   wiseMan: document.getElementById("wise"),
   jokst: document.getElementById("jokst"),
-  playBu: document.getElementById("play"),
+  playBu: document.getElementById("playBu"),
   wiseText: document.getElementById("wiseText"),
   ballText: document.getElementById("ballText"),
-  jokeText: document.getElementById("jokeText")
+  jokeText: document.getElementById("jokeText"),
+  playText: document.getElementById("playText"),
+  ballbb: document.getElementById("fortune"),
+  wiseManbb: document.getElementById("wisdom"),
+  jokstbb: document.getElementById("joker"),
+  playBubb: document.getElementById("play"),
 };
 let mousePos = new Vector(0, 0);
 let time = new Date().getTime();
@@ -77,6 +82,27 @@ JokePrompt.setProcedure("accepted", async function (eta) {
     }
   }
 });
+let PlayPrompt = new Prompt(DOM.playText,"Game On!","Ready to play a game? (y/n)");
+PlayPrompt.setProcedure("setDefault", function () {
+  return ["let's go!", "The real joke's on you!"];
+});
+function startGame(){
+  console.log("shi")
+  DOM.jokstbb.style.bottom = `-100%`
+  DOM.wiseManbb.style.left = `-100%`
+  DOM.playBubb.style.top = `-100%`
+  DOM.ballbb.style.right = `-100%`
+}
+PlayPrompt.setProcedure("accepted", async function (eta) {
+  if (eta.state == "initiated") {
+    eta.state = "pendingAccepted";
+    startGame()
+    await new Promise((x) => setTimeout(x,1));
+    if (eta.state=="pendingAccepted"){
+      eta.state = "accepted";
+    }
+  }
+});
 setInterval(async function () {
   let newTime = new Date().getTime();
   let deltaTime = (newTime - time) / 1000;
@@ -120,28 +146,24 @@ setInterval(async function () {
       inprompt = true;
       JokePrompt.initiateProcedure();
     }
-  } else {
+  } else if (charbox.overlapsBox(playbox)) {
+    if (!inprompt) {
+      inprompt = true;
+      PlayPrompt.initiateProcedure();
+    }
+  }else {
     unprompt();
   }
 }, 100);
-async function prompt(query) {
-  if (!inprompt) {
-    inprompt = true;
-    if (query == "wisdom") {
-      alert(await getQuote());
-    } else if (query == "fortune") {
 
-      console.log(await getFortune());
-    } else if (query == "joke") {
-      alert(await getJoke());
-    }
-  }
-}
 function unprompt() {
   inprompt = false;
   WisePrompt.resetProcedure();
   BallPrompt.resetProcedure();
-  JokePrompt.resetProcedure()
+  JokePrompt.resetProcedure();
+  PlayPrompt.resetProcedure()
+
+  
 }
 window.addEventListener("mousemove", function (event) {
   let X = event.clientX;
