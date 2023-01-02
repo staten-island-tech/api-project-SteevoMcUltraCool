@@ -103,7 +103,7 @@ body{
 }
 
 #joker {
-    transition: all 1;
+    transition: all 1s;
     position: absolute;
     height: 20%;
     width: 75%;

@@ -84,22 +84,29 @@ JokePrompt.setProcedure("accepted", async function (eta) {
 });
 let PlayPrompt = new Prompt(DOM.playText,"Game On!","Ready to play a game? (y/n)");
 PlayPrompt.setProcedure("setDefault", function () {
-  return ["let's go!", "The real joke's on you!"];
+  return ["let's go!", "Boring ahh mf."];
 });
 function startGame(){
-  console.log("shi")
   DOM.jokstbb.style.bottom = `-100%`
   DOM.wiseManbb.style.left = `-100%`
   DOM.playBubb.style.top = `-100%`
   DOM.ballbb.style.right = `-100%`
 }
+function endGame(){
+  DOM.jokstbb.style.bottom = `0px`
+  DOM.wiseManbb.style.left = `0px`
+  DOM.playBubb.style.top = `0px`
+  DOM.ballbb.style.right = `0px`
+  unprompt()
+}
 PlayPrompt.setProcedure("accepted", async function (eta) {
   if (eta.state == "initiated") {
     eta.state = "pendingAccepted";
     startGame()
-    await new Promise((x) => setTimeout(x,1));
+    await new Promise((x) => setTimeout(x,1000));
     if (eta.state=="pendingAccepted"){
       eta.state = "accepted";
+      endGame()
     }
   }
 });
