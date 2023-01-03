@@ -27,6 +27,7 @@ body{
 }
 
 #mommy {
+
     position: absolute;
     width: 65%;
     height: 80%;
@@ -56,6 +57,8 @@ body{
     left:calc(var(--Xpos));
     transition: all 0.22s;
     z-index: 5;
+    transform: translate(-50%, -50%);
+    cursor: none;
 }
 
 #wisdom {

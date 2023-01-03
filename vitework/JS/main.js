@@ -33,24 +33,34 @@ let fortunebox = {};
 let jokstbox = {};
 let playbox = {};
 let inprompt = false;
-let WisePrompt = new Prompt( DOM.wiseText,"Wise Man","Would you like a quote of immense knowledge? (y/n)");
+let WisePrompt = new Prompt(
+  DOM.wiseText,
+  "Wise Man",
+  "Would you like a quote of immense knowledge? (y/n)"
+);
 WisePrompt.setProcedure("setDefault", function () {
   return ["Awesome!", "Awwh"];
 });
 WisePrompt.setProcedure("accepted", async function (eta) {
   if (eta.state == "initiated") {
-    console.log(eta.state)
+    console.log(eta.state);
     eta.state = "pendingAccepted";
     eta.displayText("Awesome!", 0.033, true);
     await new Promise((x) => setTimeout(x, 200));
-    let quote = await getQuote()
-    await new Promise((x) => setTimeout(x,eta.displayText((quote).toString(), 0.033)));
-    if (eta.state=="pendingAccepted"){
+    let quote = await getQuote();
+    await new Promise((x) =>
+      setTimeout(x, eta.displayText(quote.toString(), 0.033))
+    );
+    if (eta.state == "pendingAccepted") {
       eta.state = "accepted";
     }
   }
 });
-let BallPrompt = new Prompt(DOM.ballText,"Fortune Ball","Care to venture into the unknown? (y/n)");
+let BallPrompt = new Prompt(
+  DOM.ballText,
+  "Fortune Ball",
+  "Care to venture into the unknown? (y/n)"
+);
 BallPrompt.setProcedure("setDefault", function () {
   return ["Hmm...", "Awwh"];
 });
@@ -59,14 +69,20 @@ BallPrompt.setProcedure("accepted", async function (eta) {
     eta.state = "pendingAccepted";
     eta.displayText("Hmm...", 0.033, true);
     await new Promise((x) => setTimeout(x, 200));
-    let quote = await getFortune()
-    await new Promise((x) => setTimeout(x,eta.displayText((quote).toString(), 0.033)));
-    if (eta.state=="pendingAccepted"){
+    let quote = await getFortune();
+    await new Promise((x) =>
+      setTimeout(x, eta.displayText(quote.toString(), 0.033))
+    );
+    if (eta.state == "pendingAccepted") {
       eta.state = "accepted";
     }
   }
 });
-let JokePrompt = new Prompt(DOM.jokeText,"The Jester","Bet i can turn that frown around... care for a joke? (y/n)");
+let JokePrompt = new Prompt(
+  DOM.jokeText,
+  "The Jester",
+  "Bet i can turn that frown around... care for a joke? (y/n)"
+);
 JokePrompt.setProcedure("setDefault", function () {
   return ["Mwehehe", "The real joke's on you!"];
 });
@@ -75,38 +91,58 @@ JokePrompt.setProcedure("accepted", async function (eta) {
     eta.state = "pendingAccepted";
     eta.displayText("Mwehehe", 0.033, true);
     await new Promise((x) => setTimeout(x, 200));
-    let quote = await getJoke()
-    await new Promise((x) => setTimeout(x,eta.displayText(quote, 0.033)));
-    if (eta.state=="pendingAccepted"){
+    let quote = await getJoke();
+    await new Promise((x) => setTimeout(x, eta.displayText(quote, 0.033)));
+    if (eta.state == "pendingAccepted") {
       eta.state = "accepted";
     }
   }
 });
-let PlayPrompt = new Prompt(DOM.playText,"Game On!","Ready to play a game? (y/n)");
+let PlayPrompt = new Prompt(
+  DOM.playText,
+  "Game On!",
+  "Ready to play a game? (y/n)"
+);
 PlayPrompt.setProcedure("setDefault", function () {
   return ["let's go!", "Boring ahh mf."];
 });
-function startGame(){
-  DOM.jokstbb.style.bottom = `-100%`
-  DOM.wiseManbb.style.left = `-100%`
-  DOM.playBubb.style.top = `-100%`
-  DOM.ballbb.style.right = `-100%`
+function spawnFireball() {
+  console.log("fireball");
 }
-function endGame(){
-  DOM.jokstbb.style.bottom = `0px`
-  DOM.wiseManbb.style.left = `0px`
-  DOM.playBubb.style.top = `0px`
-  DOM.ballbb.style.right = `0px`
-  unprompt()
+function spawnCoin() {
+  console.log("coin");
+}
+function startGame() {
+  DOM.jokstbb.style.bottom = `-100%`;
+  DOM.wiseManbb.style.left = `-100%`;
+  DOM.playBubb.style.top = `-100%`;
+  DOM.ballbb.style.right = `-100%`;
+  let x = new Promise((resolve) => {
+    let fireball = setInterval(function () {
+      let f = Math.random() > 0.499 && spawnFireball();
+      let ca = Math.random() > 0.888 && spawnCoin();
+    }, 400);
+    setTimeout(function () {
+      clearInterval(fireball);
+    }, 10000);
+    setTimeout(resolve, 10066);
+  });
+  x.then(endGame);
+}
+function endGame() {
+  DOM.jokstbb.style.bottom = `0px`;
+  DOM.wiseManbb.style.left = `0px`;
+  DOM.playBubb.style.top = `0px`;
+  DOM.ballbb.style.right = `0px`;
+  unprompt();
 }
 PlayPrompt.setProcedure("accepted", async function (eta) {
   if (eta.state == "initiated") {
     eta.state = "pendingAccepted";
-    startGame()
-    await new Promise((x) => setTimeout(x,1000));
-    if (eta.state=="pendingAccepted"){
+    startGame();
+    await new Promise((x) => setTimeout(x, 1000));
+    if (eta.state == "pendingAccepted") {
       eta.state = "accepted";
-      endGame()
     }
   }
 });
@@ -158,19 +194,18 @@ setInterval(async function () {
       inprompt = true;
       PlayPrompt.initiateProcedure();
     }
-  }else {
+  } else {
     unprompt();
   }
 }, 100);
 
 function unprompt() {
+  console.log("unprompting");
   inprompt = false;
   WisePrompt.resetProcedure();
   BallPrompt.resetProcedure();
   JokePrompt.resetProcedure();
-  PlayPrompt.resetProcedure()
-
-  
+  PlayPrompt.resetProcedure();
 }
 window.addEventListener("mousemove", function (event) {
   let X = event.clientX;
