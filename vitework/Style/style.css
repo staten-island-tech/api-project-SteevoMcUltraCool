@@ -183,3 +183,42 @@ body{
     right: 0%;
     top: 3%;
 }
+.fireball {
+    position: absolute;
+    width: 11%;
+    aspect-ratio: .55;
+    background-image: url('../public/fire.gif');
+    background-size: 100% 100%;
+    background-attachment: local;
+    background-repeat: no-repeat;
+    z-index: 2;
+    animation: down 1.45s linear 0s ;
+   
+
+}
+.coin {
+    position: absolute;
+    width: 10%;
+    aspect-ratio: 1;
+    background-image: url('https://freepngimg.com/thumb/coin/66672-coin-transparent-gold-icon-free-photo-png.png');
+    background-size: 100% 100%;
+    background-attachment: local;
+    background-repeat: no-repeat;
+    z-index: 1;
+    animation: flip 1s linear 
+}
+@keyframes down {
+    0% {
+        transform: translate(0%, -100%);
+        top: 0%;
+    }
+    100% {
+        transform: translate(0%, 0%);
+        top: 100%;
+    }
+}
+@keyframes spin {
+    100% {
+        transform: rotate(360deg)
+    }
+}

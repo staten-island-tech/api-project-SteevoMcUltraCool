@@ -1,6 +1,7 @@
 import { getJoke, getFortune, getQuote } from "./api.js";
 import { Vector, Box } from "./vector.js";
 import { Prompt, passiveRUN } from "./prompt.js";
+import { Fireball, Coin } from "./fbc.js";
 window.addEventListener("keydown", passiveRUN);
 const DOM = {
   root: document.documentElement,
@@ -107,10 +108,10 @@ PlayPrompt.setProcedure("setDefault", function () {
   return ["let's go!", "Boring ahh mf."];
 });
 function spawnFireball() {
-  console.log("fireball");
+  console.log(new Fireball(DOM.mommy));
 }
 function spawnCoin() {
-  console.log("coin");
+  new Coin(DOM.mommy);
 }
 function startGame() {
   DOM.jokstbb.style.bottom = `-100%`;
@@ -200,7 +201,6 @@ setInterval(async function () {
 }, 100);
 
 function unprompt() {
-  console.log("unprompting");
   inprompt = false;
   WisePrompt.resetProcedure();
   BallPrompt.resetProcedure();
