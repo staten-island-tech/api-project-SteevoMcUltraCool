@@ -187,13 +187,12 @@ body{
     position: absolute;
     width: 11%;
     aspect-ratio: .55;
-    background-image: url('../public/fire.gif');
+    background-image: url('../fire.gif');
     background-size: 100% 100%;
     background-attachment: local;
     background-repeat: no-repeat;
-    z-index: 2;
-    animation: down 1.45s linear 0s ;
-   
+    bottom: 100%;
+    transition: all 1.45s;
 
 }
 .coin {
@@ -206,16 +205,6 @@ body{
     background-repeat: no-repeat;
     z-index: 1;
     animation: flip 1s linear 
-}
-@keyframes down {
-    0% {
-        transform: translate(0%, -100%);
-        top: 0%;
-    }
-    100% {
-        transform: translate(0%, 0%);
-        top: 100%;
-    }
 }
 @keyframes spin {
     100% {

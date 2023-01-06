@@ -4,7 +4,11 @@ class fireball {
     this.element.className = "fireball";
     this.element.style.left = `${Math.random() * 92}%`;
     this.parent = parent;
+    this.element.style.bottom = "0%";
+    this.element.style.transform = "translate(0px, 100%)";
     this.parent.appendChild(this.element);
+    this.element.style.top = "20%";
+    this.element.style.transform = "translate(0px, 100%)";
   }
 }
 
