@@ -6,6 +6,7 @@ class fireball {
     this.parent = parent;
     this.element.style.bottom = "0%";
     this.element.style.transform = "translate(0px, 100%)";
+    this.element.style.transition = "all 1.45s";
     this.parent.appendChild(this.element);
     this.element.style.top = "20%";
     this.element.style.transform = "translate(0px, 100%)";
