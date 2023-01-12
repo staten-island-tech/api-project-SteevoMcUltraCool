@@ -194,15 +194,17 @@ body{
     /* bottom: 100%; */
     /* transition: all 1.45s;
     -webkit-transition: all 1.45s; */
-    animation: fireballsdown 10s linear;
+    animation: fireballsdown 2.2s linear;
     animation-fill-mode: forwards;
 }
 @keyframes fireballsdown{
     0% {
         top: 0%;
+        transform: translate(-0%, -100%);
     }
     100% {
         top: 100%;
+        transform: translate(-0%, 0%);
     }
 }
 .fireball :hover {

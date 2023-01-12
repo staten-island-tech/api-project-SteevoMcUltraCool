@@ -1,12 +1,9 @@
 let container = document.getElementById("mommy");
-container.insertAdjacentHTML(
-  "beforeend",
-  `<img class="fireball" src="./fire.gif" alt="fireball">`
-);
-/* class fireball {
+ class fireball {
   constructor(parent) {
-    this.element = document.createElement("div");
+    this.element = document.createElement("img");
     this.element.className = "fireball";
+    this.element.src = "./public/fire.gif"
     this.element.style.left = `${Math.random() * 92}%`;
     this.parent = parent;
     this.element.style.top = "0%";
@@ -15,7 +12,7 @@ container.insertAdjacentHTML(
     this.element.style.top = "100%";
     this.element.style.transform = "translate(0px, 0%)";
   }
-} */
+} 
 
 class coin {
   constructor(parent) {

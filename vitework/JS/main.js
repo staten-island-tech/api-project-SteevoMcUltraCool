@@ -125,8 +125,8 @@ function startGame() {
     }, 400);
     setTimeout(function () {
       clearInterval(fireball);
-    }, 10000);
-    setTimeout(resolve, 10066);
+    }, 30000);
+    setTimeout(resolve, 30066);
   });
   x.then(endGame);
 }
