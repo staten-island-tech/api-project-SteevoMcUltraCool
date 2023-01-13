@@ -1,16 +1,12 @@
 let container = document.getElementById("mommy");
  class fireball {
   constructor(parent) {
-    this.element = document.createElement("img");
+    this.element = document.createElement("div");
     this.element.className = "fireball";
     this.element.src = "./public/fire.gif"
     this.element.style.left = `${Math.random() * 92}%`;
     this.parent = parent;
-    this.element.style.top = "0%";
-    this.element.style.transform = "translate(0px, -100%)";
     this.parent.appendChild(this.element);
-    this.element.style.top = "100%";
-    this.element.style.transform = "translate(0px, 0%)";
   }
 } 
 
