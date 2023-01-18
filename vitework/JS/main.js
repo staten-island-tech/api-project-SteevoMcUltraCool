@@ -26,7 +26,7 @@ let mommySize = new Vector(200, 200);
 let charsize = 0;
 let speed = mommySize.X / 3.5;
 function M(n, d) {
-  return Math.max(0, Math.min(mommySize[d] - charsize, n));
+  return Math.max(0, Math.min(mommySize[d] - charsize + mommySize.X / 40, n));
 }
 let charbox = {};
 let wisdombox = {};
@@ -125,6 +125,10 @@ function startGame() {
     }, 400);
     setTimeout(function () {
       clearInterval(fireball);
+      let coins = document.querySelectorAll(".coin");
+      let fireballs = document.querySelectorAll(".fireball");
+      coins.forEach((coin) => coin.remove());
+      fireballs.forEach((fb) => fb.remove());
     }, 30000);
     setTimeout(resolve, 30066);
   });
@@ -160,7 +164,7 @@ setInterval(async function () {
   );
   let deltaX = mousePos.X - currentPos.X;
   let deltaY = mousePos.Y - currentPos.Y;
-  if (Math.sqrt(deltaX ** 2 + deltaY ** 2) >= speed / 11) {
+  if (Math.sqrt(deltaX ** 2 + deltaY ** 2) >= speed / 20) {
     let data = Math.atan(deltaY / deltaX);
     deltaX = Math.cos(data) * speed * Math.sign(deltaX) * deltaTime;
     deltaY = Math.sin(data) * speed * Math.sign(deltaX) * deltaTime;
@@ -198,7 +202,20 @@ setInterval(async function () {
   } else {
     unprompt();
   }
+  let fireballs = document.querySelectorAll(".fireball");
+  fireballs.forEach((fb) => {
+    let fbs = fb.getBoundingClientRect();
+    let fbBox = new Box(new Vector(fbs.left, fbs.top),new Vector(fbs.right, fbs.bottom));
+    console.log("2")
+    if (charbox.overlapsBox(fbBox)){
+      console.log("die")
+      die()
+    }
+  });
 }, 100);
+function die() {
+  location.reload();
+}
 
 function unprompt() {
   inprompt = false;
