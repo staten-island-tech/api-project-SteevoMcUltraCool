@@ -5,11 +5,24 @@ const DOM = {
     punchline: document.getElementById("punchline"),
     left: document.getElementById("left"),
     right: document.getElementById("right"),
-
+    flagbus: document.querySelectorAll(".flag"),
+    submitBu: document.getElementById("submit"),
 }
-let flags = {}
+let flags = {
+    nsfw: false,
+    religious: false,
+    political: false,
+    racist:false,
+    sexist:false
+}
 let jokes = [] // {type:"single, twopart" joke:[setup/joke,delivery]}
 let atJoke = 0
+DOM.flagbus.forEach(button => {
+    button.addEventListener("click",function(){
+        flags[button.id] = ! flags[button.id]
+        console.log(flags)
+    })
+})
 function displayJoke(joke,hidden){
     if (joke.type == "single"){
         DOM.setup.innerHTML = joke.joke[0]
@@ -39,7 +52,7 @@ getJokeBu.addEventListener("click",async function(){
 
 DOM.left.addEventListener("click",function(){
     atJoke = Math.max(atJoke-1, 0)
-    displayJoke(jokes[atJoke],false)
+    displayJoke(jokes[atJoke],true)
 })
 DOM.right.addEventListener("click",async function(){
     atJoke = atJoke+1
@@ -49,6 +62,9 @@ DOM.right.addEventListener("click",async function(){
         atJoke = jokes.length - 1
         displayJoke(joke,true)
     }else{
-        displayJoke(jokes[atJoke],false)
+        displayJoke(jokes[atJoke],true)
     }
+})
+DOM.submitBu.addEventListener("click", function(){
+
 })

@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -6,27 +7,58 @@
     <link rel="stylesheet" href="style.css">
     <title>Joke Teller</title>
 </head>
+
 <body>
     <h1>Joke Teller</h1>
     <section id="userInput">
-            <h3>Category:</h3>
-            <label><input type="radio" name="category" value ="Any">Any</label>
-            <label><input type="radio" name="category" value="Misc">Miscellaneous</label>
-            <label><input type="radio" name="category" value="Programming">Programming</label>
-            <label><input type="radio" name="category" value="Dark">Dark</label>
-            <label><input type="radio" name="category" value="Pun">Pun</label>
-            <label><input type="radio" name="category" value="Spooky">Spooky</label>
-            <label><input type="radio" name="category" value="Christmas">Christmas</label>
-             <button id="getJokeBu">Get Joke</button>
+        <h3>Category:</h3>
+        <label><input type="radio" name="category" value="Any">Any</label>
+        <label><input type="radio" name="category" value="Misc">Miscellaneous</label>
+        <label><input type="radio" name="category" value="Programming">Programming</label>
+        <label><input type="radio" name="category" value="Dark">Dark</label>
+        <label><input type="radio" name="category" value="Pun">Pun</label>
+        <label><input type="radio" name="category" value="Spooky">Spooky</label>
+        <label><input type="radio" name="category" value="Christmas">Christmas</label>
+        <button id="getJokeBu">Get Joke</button>
     </section>
+    <h2>Get Joke</h2>
     <section id="mommy" class="fart">
-        <button id = "left">Previous Joke</button>
-        <div id = "main">
-            <div id = "setup"></div>
-            <div id = "punchline"></div>
+        <button id="left">Previous Joke</button>
+        <div id="main">
+            <div id="setup"></div>
+            <div id="punchline"></div>
         </div>
-        <button id = "right">Next Joke</button>
+        <button id="right">Next Joke</button>
+    </section>
+    <section id="miniMommy" class="fart">
+        <h2>Upload Joke</h2>
+        <div id="miniCategory">
+            <h3>Category:</h3>
+            <label><input type="radio" name="minicategory" value="Any">Any</label>
+            <label><input type="radio" name="minicategory" value="Misc">Miscellaneous</label>
+            <label><input type="radio" name="minicategory" value="Programming">Programming</label>
+            <label><input type="radio" name="minicategory" value="Dark">Dark</label>
+            <label><input type="radio" name="minicategory" value="Pun">Pun</label>
+            <label><input type="radio" name="minicategory" value="Spooky">Spooky</label>
+            <label><input type="radio" name="minicategory" value="Christmas">Christmas</label>
+        </div>
+        <div id="flags">
+            <h3>Flags:</h3>
+            <label><input type="checkbox" id="nsfw" class="flag">nsfw</label>
+            <label><input type="checkbox" id="religious" class="flag">religious</label>
+            <label><input type="checkbox" id="political" class="flag">political</label>
+            <label><input type="checkbox" id="racist" class="flag">racist</label>
+            <label><input type="checkbox" id="sexist" class="flag">sexist</label>
+        </div>
+        <div id="textInputs">
+            <h3>Setup:</h3><textarea id="miniSetup" rows="1" cols="80"></textarea>
+            <br>
+            <h3>Punchline:</h3><textarea id="miniPunchline" rows="1" cols="80"></textarea>
+        </div>
+        <button id="submit">Submite Joke</button>
+        <p id="results"></p>
     </section>
     <script type="module" src="./JS/main.js"></script>
 </body>
+
 </html>
