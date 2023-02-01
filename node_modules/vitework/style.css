@@ -1,0 +1,38 @@
+body{
+    background-image: linear-gradient(#111, #222) ;
+    background-size: cover;
+    color: white;
+    background-attachment: fixed;
+}
+h1 {
+    text-align: center;
+    font-size: 60px;
+    text-decoration: underline;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+h3 {
+    display: inline;
+}
+#userInput{
+    color: white;
+    background-color: #333;
+    text-align: center;
+}
+#mommy {
+    display: flex;
+    max-width: 1030px;
+    margin: auto auto;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+#mommy > button {
+    margin: 40px;
+    margin-top: 0px;
+    max-height: 40px;
+}
+
+#mommy > div {
+    text-align: center;
+}
