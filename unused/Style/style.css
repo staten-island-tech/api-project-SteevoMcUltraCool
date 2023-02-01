@@ -212,7 +212,7 @@ body{
 }
 .coin {
     position: absolute;
-    width: 10%;
+    width: 5%;
     aspect-ratio: 1;
     background-image: url('https://freepngimg.com/thumb/coin/66672-coin-transparent-gold-icon-free-photo-png.png');
     background-size: 100% 100%;
@@ -220,9 +220,4 @@ body{
     background-repeat: no-repeat;
     z-index: 1;
     animation: flip 1s linear 
-}
-@keyframes spin {
-    100% {
-        transform: rotate(360deg)
-    }
 }

@@ -1,14 +1,14 @@
 let container = document.getElementById("mommy");
- class fireball {
+class fireball {
   constructor(parent) {
-    this.element = document.createElement("div");
+    this.element = document.createElement("img");
     this.element.className = "fireball";
-    this.element.src = "./public/fire.gif"
+    this.element.src = "./public/fire.gif";
     this.element.style.left = `${Math.random() * 92}%`;
     this.parent = parent;
     this.parent.appendChild(this.element);
   }
-} 
+}
 
 class coin {
   constructor(parent) {
