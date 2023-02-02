@@ -35,4 +35,27 @@ async function GetJoke(flags){
     }
     return false
 }
+
+const op2 = {
+  method: 'PUT',
+  headers: {
+    'content-type': 'application/json',
+    'X-RapidAPI-Key': '82720bd7d6msh2d19c07fd7db3ddp1297f3jsn24bf33fef3b4',
+    'X-RapidAPI-Host': 'jokeapi-v2.p.rapidapi.com'
+  },
+  body: '{"formatVersion":2,"category":"Miscellaneous","type":"single","joke":"A horse walks into a bar...","flags":{"nsfw":true,"religious":false,"political":true,"racist":false,"sexist":false}}'
+};
+async function putJoke(){
+    try {
+        op2.body = JSON.stringify({
+            formatVersion:2,
+            category: getRadioButtonValue("minicategory"),
+            type: "twopart"
+        })
+        let rawData = await fetch('https://jokeapi-v2.p.rapidapi.com/submit',op2)
+    }catch(error){
+        console.error(error)
+    }
+}
+
 export let getRadioButtonValue = GetRadioButtonValue, getJoke = GetJoke, objectToString =ObjectToString

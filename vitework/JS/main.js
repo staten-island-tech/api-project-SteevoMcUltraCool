@@ -7,6 +7,8 @@ const DOM = {
     right: document.getElementById("right"),
     flagbus: document.querySelectorAll(".flag"),
     submitBu: document.getElementById("submit"),
+    miniSetup: document.getElementById("miniSetup"),
+    miniPunchline: document.getElementById("miniPunchline")
 }
 let flags = {
     nsfw: false,
@@ -66,5 +68,6 @@ DOM.right.addEventListener("click",async function(){
     }
 })
 DOM.submitBu.addEventListener("click", function(){
-
+    let setup = DOM.miniSetup.value
+    let punchline = DOM.miniPunchline.value
 })
